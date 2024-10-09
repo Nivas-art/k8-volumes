@@ -14,53 +14,53 @@ spec:
 
 ---
 
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: ebs-claim
-# spec:
-#   storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
-#   volumeName: static-volume
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 5Gi
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-claim
+spec:
+  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
+  volumeName: static-volume
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
 
-# ---
+---
 
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: app-volume
-# spec:
-#   containers:
-#   - name: app
-#     image: nginx
-#     labels:
-#       volumes: static
-#       envrinment: dev
-#     volumeMounts:
-#     - name: persistent-storage
-#       mountPath: /usr/share/nginx/html
-#   volumes:
-#   - name: persistent-storage
-#     persistentVolumeClaim:
-#       claimName: ebs-claim
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-volume
+spec:
+  containers:
+  - name: app
+    image: nginx
+    labels:
+      volumes: static
+      envrinment: dev
+    volumeMounts:
+    - name: persistent-storage
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: persistent-storage
+    persistentVolumeClaim:
+      claimName: ebs-claim
 
-# ---
+---
 
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: service-load
-# spec:
-#   type: LoadBalancer
-#   selector:
-#     volumes: static
-#     envrinment: dev
-#   ports:
-#   - name: nginx
-#     protocol: TCP
-#     port: 80 
-#     targetPort: 80
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-load
+spec:
+  type: LoadBalancer
+  selector:
+    volumes: static
+    envrinment: dev
+  ports:
+  - name: nginx
+    protocol: TCP
+    port: 80 
+    targetPort: 80
