@@ -33,13 +33,13 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: app-volume
+  labels:
+    volumes: static
+    envrinment: dev
 spec:
   containers:
   - name: app
     image: nginx
-    labels:
-      volumes: static
-      envrinment: dev
     volumeMounts:
     - name: persistent-storage
       mountPath: /usr/share/nginx/html
