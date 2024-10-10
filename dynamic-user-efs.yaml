@@ -8,7 +8,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 4G
+      storage: 4Gi
 ---
 apiVersion: v1
 kind: Pod
